@@ -1,5 +1,4 @@
 import os
-
 os.system("pip install requests")
 os.system("pip install pyunsplash")
 os.system("pip install win10toast")
@@ -43,13 +42,13 @@ def is_64bit():
 
 
 def change_background():
-    print(time.ctime())
+    print(f"Wallpaper change started at {time.ctime()}")
     query = random.choice(config["categories"])
-    print(query)
+    print(f"Query for wallpaper: {query}")
     photos = pu.photos(type_="random", count=1, featured=True, query=query)
 
     [photo] = photos.entries
-    print(dir(photo))
+    
     print(photo.get_attribution())
     with open("wallpaper.png", "wb") as f:
         response = requests.get(photo.link_download, allow_redirects=True)
