@@ -33,8 +33,10 @@ jobs:
       - name: Set archive name
         run: |
           ARCHIVE_NAME=${{ env.project-name }}-`git describe --always`-${{ matrix.platform-name }}
+          GHASH=${{ env.project-name }}-`git rev-parse HEAD`-${{ matrix.platform-name }}
           echo "Archive name set to: $ARCHIVE_NAME"
           echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_ENV
+          echo "hash=$GHASH" >> $GITHUB_ENV
       - name: Set up Python ${{ env.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -68,10 +70,13 @@ jobs:
           path: "dist/*.exe"
           retention-days: 7
           if-no-files-found: error
-      - name: Run release!
-        uses: ph-fritsche/action-release@v1.1.1
-        with: 
-          debug: true
-          dry: false
-          force: minor
+            # If a tag is pushed then a new archives are uploaded to GitHub Releases automatically.
+      - name: Upload release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.archive-name }}.*
+          file_glob: true
+          tag: ${{ env.hash }}
+          overwrite: true
      
