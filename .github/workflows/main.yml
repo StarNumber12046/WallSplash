@@ -65,7 +65,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: automated-builds
-          path: ${{ env.archive-name }}.*
+          path: "dist/*.exe"
           retention-days: 7
           if-no-files-found: error
       # If a tag is pushed then a new archives are uploaded to GitHub Releases automatically.
