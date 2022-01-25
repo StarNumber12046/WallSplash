@@ -1,0 +1,12 @@
+*.png
+__pycache__/*
+build/*
+build/*/*
+dist/*
+*.egg-info/*
+*.egg
+*.zip
+*/*.zip
+*.exe
+*.json
+config.json
