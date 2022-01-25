@@ -53,7 +53,7 @@ jobs:
           PYTHONOPTIMIZE: 1 # Enable optimizations as if the -O flag is given.
           PYTHONHASHSEED: 42 # Try to ensure deterministic results.
         run: |
-          pyinstaller -n UnsplashWallpaper -i icons\grinning.ico --onefile main.py
+          pyinstaller -n UnsplashWallpaper -i icons/grinning.ico --onefile main.py
       # This step exists for debugging.  Such as checking if data files were included correctly by PyInstaller.
       - name: List distribution files
         run: |
@@ -65,16 +65,15 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: automated-builds
-          path: ${{ env.archive-name }}.*
+          path: "dist/*.exe"
           retention-days: 7
           if-no-files-found: error
       # If a tag is pushed then a new archives are uploaded to GitHub Releases automatically.
       - name: Upload release
-        if: startsWith(github.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/${{ env.archive-name }}.*
+          file: "dist/*.exe"
           file_glob: true
           tag: ${{ github.ref }}
           overwrite: true
