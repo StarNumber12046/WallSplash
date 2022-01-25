@@ -68,11 +68,10 @@ jobs:
           path: "dist/*.exe"
           retention-days: 7
           if-no-files-found: error
-      - name: go-semantic-release
-
-        uses: go-semantic-release/action@v1.15.0
-        with:
-          github-token: "{secrets.GITHUB_TOKEN}"
-     # creates a changelog file
-          changelog-file: CHANGELOG.txt
-     # create a .ghr file with the parameters for tcnksm/ghr
+      - name: Run release!
+        uses: ph-fritsche/action-release@v1.1.1
+        with: 
+          debug: true
+          dry: false
+          force: minor
+     
