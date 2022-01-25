@@ -8,5 +8,4 @@ dist/*
 *.zip
 */*.zip
 *.exe
-*.json
 config.json
