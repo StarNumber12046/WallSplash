@@ -14,12 +14,27 @@ import win10toast
 import json
 notifications = win10toast.ToastNotifier()
 
+def everything_exists():
+    if not "config.jsons" in os.listdir("."):
+        print("config.json not found!\n")
+        return False
+    if not os.isdir("icons"):
+        print("icons folder not found!\n")
+        return False
+    return True
+
+if not everything_exists():
+    json_config = requests.get("")
+
 f = open("config.json", "r")
 config = json.load(f)
 f.close()
 
+
+
 SPI_SETDESKWALLPAPER = 20
 UNSPLASH_ACCESS_KEY = config["api_key"]
+
 
 
 try:
@@ -35,6 +50,7 @@ except:
     )
     exit()
 WAIT_SECONDS = int(config["change_time"]) * 60
+
 
 
 def is_64bit():
