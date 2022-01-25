@@ -1,7 +1,4 @@
 import os
-os.system("pip install requests")
-os.system("pip install pyunsplash")
-os.system("pip install win10toast")
 import time
 import threading
 import requests
@@ -12,10 +9,12 @@ from pyunsplash import PyUnsplash
 import random
 import win10toast
 import json
+
 notifications = win10toast.ToastNotifier()
 
+
 def everything_exists():
-    if not "config.jsons" in os.listdir("."):
+    if not "config.json" in os.listdir("."):
         print("config.json not found!\n")
         return False
     if not os.isdir("icons"):
@@ -23,18 +22,43 @@ def everything_exists():
         return False
     return True
 
+
 if not everything_exists():
-    json_config = requests.get("")
+    json_config = requests.get(
+        "https://raw.githubusercontent.com/StarNumber12046/WallSplash/main/config.standard.json"
+    )
+    f = open("config.json", "wb")
+    f.write(json_config.content)
+    f.close()
+    try:
+
+        os.mkdir("icons")
+    except:
+        pass
+    grinning = requests.get(
+        "https://github.com/StarNumber12046/WallSplash/blob/main/icons/grinning.ico?raw=true"
+    )
+    f = open("icons/grinning.ico", "wb")
+    f.write(grinning.content)
+    f.close()
+    growing = requests.get(
+        "https://github.com/StarNumber12046/WallSplash/blob/main/icons/growing.ico?raw=true"
+    )
+    f = open("icons/growing.ico", "wb")
+    f.write(grinning.content)
+    f.close()
+    exit(
+        "Insert your API key from Unsplash in the config.json and restart the program!"
+    )
+
 
 f = open("config.json", "r")
 config = json.load(f)
 f.close()
 
 
-
 SPI_SETDESKWALLPAPER = 20
 UNSPLASH_ACCESS_KEY = config["api_key"]
-
 
 
 try:
@@ -52,7 +76,6 @@ except:
 WAIT_SECONDS = int(config["change_time"]) * 60
 
 
-
 def is_64bit():
     return sys.maxsize > 2 ** 32
 
@@ -64,7 +87,7 @@ def change_background():
     photos = pu.photos(type_="random", count=1, featured=True, query=query)
 
     [photo] = photos.entries
-    
+
     print(photo.get_attribution())
     with open("wallpaper.png", "wb") as f:
         response = requests.get(photo.link_download, allow_redirects=True)
