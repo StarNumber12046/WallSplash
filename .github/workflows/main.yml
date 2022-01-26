@@ -29,7 +29,7 @@ jobs:
       - name: Set archive name
         run: |
           ARCHIVE_NAME=${{ env.project-name }}-`python3 date.py`-`git describe --always`
-          GHASH=${{ env.project-name }}-`python3 date.py`-`git describe --always`
+          GHASH=${{ env.project-name }}-`git describe --always`
           
           echo "Archive name set to: $ARCHIVE_NAME"
           echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_ENV
