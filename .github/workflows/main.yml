@@ -29,7 +29,7 @@ jobs:
       - name: Set archive name
         run: |
           ARCHIVE_NAME=${{ env.project-name }}-`python3 date.py`-`git describe --always`
-          GHASH=${{ env.project-name }}-`git rev-parse HEAD`-${{ matrix.platform-name }}
+          GHASH=${{ env.project-name }}-`python3 date.py`-`git describe --always`
           
           echo "Archive name set to: $ARCHIVE_NAME"
           echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_ENV
@@ -57,7 +57,7 @@ jobs:
       # This step exists for debugging.  Such as checking if data files were included correctly by PyInstaller.
       - name: List distribution files
         run: |
-          GHASH=${{ env.project-name }}-`git rev-parse HEAD`-${{ matrix.platform-name }}
+          GHASH=${{ env.project-name }}-`python3 date.py`-`git describe --always`
           echo $GHASH
           find dist
       # Archive the PyInstaller build using the appropriate tool for the platform.
