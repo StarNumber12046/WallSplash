@@ -57,6 +57,8 @@ jobs:
       # This step exists for debugging.  Such as checking if data files were included correctly by PyInstaller.
       - name: List distribution files
         run: |
+          GHASH=${{ env.project-name }}-`git rev-parse HEAD`-${{ matrix.platform-name }}
+          echo $GHASH
           find dist
       # Archive the PyInstaller build using the appropriate tool for the platform.
       
