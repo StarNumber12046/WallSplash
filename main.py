@@ -17,7 +17,7 @@ def everything_exists():
     if not "config.json" in os.listdir("."):
         print("config.json not found!\n")
         return False
-    if not os.isdir("icons"):
+    if not "grinning.ico" in os.listdir("icons"):
         print("icons folder not found!\n")
         return False
     return True
