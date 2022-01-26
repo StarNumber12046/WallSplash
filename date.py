@@ -1,2 +1,2 @@
-import time
-print(time.ctime())
+import datetime
+print(datetime.datetime.now().strftime("%Y%m%d%%H%M%S"))
