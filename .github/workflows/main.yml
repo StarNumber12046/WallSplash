@@ -28,8 +28,9 @@ jobs:
           fetch-depth: 0
       - name: Set archive name
         run: |
-          ARCHIVE_NAME=${{ env.project-name }}-`git describe --always`-${{ matrix.platform-name }}
+          ARCHIVE_NAME=${{ env.project-name }}-`python3 date.py`-`git describe --always`
           GHASH=${{ env.project-name }}-`git rev-parse HEAD`-${{ matrix.platform-name }}
+          
           echo "Archive name set to: $ARCHIVE_NAME"
           echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_ENV
           echo "${{ github.event.head_commit.message }}"
