@@ -20,10 +20,6 @@ jobs:
         include:
           - os: windows-2019
             platform-name: windows.x64
-          - os: macos-10.15
-            platform-name: macos.x64
-          - os: ubuntu-20.04
-            platform-name: linux.x64
     steps:
       - name: Checkout code
         # fetch-depth=0 and v1 are needed for 'git describe' to work correctly.
@@ -36,6 +32,7 @@ jobs:
           GHASH=${{ env.project-name }}-`git rev-parse HEAD`-${{ matrix.platform-name }}
           echo "Archive name set to: $ARCHIVE_NAME"
           echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_ENV
+          echo ${{ github.event.head_commit.message }}"
           echo "hash=$GHASH" >> $GITHUB_ENV
       - name: Set up Python ${{ env.python-version }}
         uses: actions/setup-python@v2
