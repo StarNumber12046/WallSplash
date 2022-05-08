@@ -15,10 +15,10 @@ notifications = win10toast.ToastNotifier()
 
 def everything_exists():
     if not "config.json" in os.listdir("."):
-        print("config.json not found!\n")
+        print("\"config.json\" not found!\n")
         return False
     if not "grinning.ico" in os.listdir("icons"):
-        print("icons folder not found!\n")
+        print("\"icons\" folder not found!\n")
         return False
     return True
 
